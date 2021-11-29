@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { View, Text } from "react-native";
 import * as Google from "expo-google-app-auth";
 
@@ -65,10 +71,20 @@ export const AuthProvider = (props) => {
         setLoading(false);
       });
   };
+
+  const memoedValue = useMemo(
+    () => ({
+      user,
+      loading,
+      error,
+      signInWithGoogle,
+      logout,
+    }),
+    [user, loading, error]
+  );
+  console.log(memoedValue);
   return (
-    <AuthContext.Provider
-      value={{ user: user, signInWithGoogle, loading, error, logout }}
-    >
+    <AuthContext.Provider value={memoedValue}>
       {!loadingInitial && props.children}
     </AuthContext.Provider>
   );

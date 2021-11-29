@@ -4,11 +4,11 @@ import useAuth from "../hooks/useAuth";
 
 const LoginScreen = () => {
   const { user } = useAuth();
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, loading } = useAuth();
   console.log(user);
   return (
     <View>
-      <Text>Login to the app</Text>
+      <Text>{loading ? "loading ..." : "Login to the app"}</Text>
       <Button title="login" onPress={signInWithGoogle} />
     </View>
   );
